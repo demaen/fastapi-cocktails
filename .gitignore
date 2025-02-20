@@ -1,5 +1,9 @@
 .venv/
+test_data
+test_directoy
 
 __pycache__
 
 .env
+
+test_main.py
