@@ -1,0 +1,33 @@
+{
+    "name": "Manhattan",
+    "ingredients": [
+        {
+            "name": "Rye whiskey",
+            "amount": 2.0,
+            "unit": "oz"
+        },
+        {
+            "name": "Sweet vermouth",
+            "amount": 1.0,
+            "unit": "oz"
+        },
+        {
+            "name": "Angostura bitters",
+            "amount": 2.0,
+            "unit": "dashes"
+        },
+        {
+            "name": "Maraschino cherry",
+            "amount": 1.0,
+            "unit": "piece"
+        }
+    ],
+    "instructions": [
+        "Add rye whiskey, sweet vermouth, and bitters to a mixing glass with ice",
+        "Stir until well-chilled",
+        "Strain into a chilled coupe glass",
+        "Garnish with a maraschino cherry"
+    ],
+    "glass_type": "Coupe",
+    "category": "Cocktail"
+}

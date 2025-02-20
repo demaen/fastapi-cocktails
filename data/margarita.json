@@ -1,0 +1,34 @@
+{
+    "name": "Margarita",
+    "ingredients": [
+        {
+            "name": "Tequila",
+            "amount": 2.0,
+            "unit": "oz"
+        },
+        {
+            "name": "Fresh lime juice",
+            "amount": 1.0,
+            "unit": "oz"
+        },
+        {
+            "name": "Triple sec",
+            "amount": 1.0,
+            "unit": "oz"
+        },
+        {
+            "name": "Salt",
+            "amount": 1.0,
+            "unit": "rim"
+        }
+    ],
+    "instructions": [
+        "Rim a margarita glass with salt",
+        "Add tequila, lime juice, and triple sec to a shaker with ice",
+        "Shake well until chilled",
+        "Strain into the prepared glass",
+        "Garnish with a lime wheel"
+    ],
+    "glass_type": "Margarita",
+    "category": "Cocktail"
+}

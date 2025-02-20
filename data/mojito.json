@@ -1,0 +1,39 @@
+{
+    "name": "Mojito",
+    "ingredients": [
+        {
+            "name": "White rum",
+            "amount": 2.0,
+            "unit": "oz"
+        },
+        {
+            "name": "Fresh lime juice",
+            "amount": 1.0,
+            "unit": "oz"
+        },
+        {
+            "name": "Simple syrup",
+            "amount": 0.75,
+            "unit": "oz"
+        },
+        {
+            "name": "Fresh mint leaves",
+            "amount": 6.0,
+            "unit": "pieces"
+        },
+        {
+            "name": "Club soda",
+            "amount": 2.0,
+            "unit": "oz"
+        }
+    ],
+    "instructions": [
+        "In a highball glass, gently muddle the mint leaves with simple syrup",
+        "Add fresh lime juice and rum",
+        "Fill glass with crushed ice",
+        "Top with club soda",
+        "Garnish with mint sprig and serve"
+    ],
+    "glass_type": "Highball",
+    "category": "Cocktail"
+}

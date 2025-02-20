@@ -1,0 +1,35 @@
+{
+    "name": "Old Fashioned",
+    "ingredients": [
+        {
+            "name": "Bourbon whiskey",
+            "amount": 2.0,
+            "unit": "oz"
+        },
+        {
+            "name": "Sugar cube",
+            "amount": 1.0,
+            "unit": "piece"
+        },
+        {
+            "name": "Angostura bitters",
+            "amount": 2.0,
+            "unit": "dashes"
+        },
+        {
+            "name": "Orange peel",
+            "amount": 1.0,
+            "unit": "piece"
+        }
+    ],
+    "instructions": [
+        "Place sugar cube in an old fashioned glass",
+        "Add bitters and a splash of water",
+        "Muddle until sugar is dissolved",
+        "Add bourbon and stir",
+        "Add one large ice cube",
+        "Garnish with orange peel"
+    ],
+    "glass_type": "Old Fashioned",
+    "category": "Cocktail"
+}

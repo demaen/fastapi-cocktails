@@ -1,0 +1,34 @@
+{
+    "name": "Gin Basil Smash",
+    "ingredients": [
+        {
+            "name": "Gin",
+            "amount": 60.0,
+            "unit": "ml"
+        },
+        {
+            "name": "Fresh lemon juice",
+            "amount": 30.0,
+            "unit": "ml"
+        },
+        {
+            "name": "Simple syrup",
+            "amount": 15.0,
+            "unit": "ml"
+        },
+        {
+            "name": "Fresh basil leaves",
+            "amount": 8.0,
+            "unit": "pieces"
+        }
+    ],
+    "instructions": [
+        "In a shaker, gently muddle the fresh basil leaves",
+        "Add gin, fresh lemon juice, and simple syrup",
+        "Fill shaker with ice and shake vigorously",
+        "Double strain into an ice-filled rocks glass",
+        "Garnish with a basil leaf"
+    ],
+    "glass_type": "Rocks glass",
+    "category": "Contemporary Classic"
+}

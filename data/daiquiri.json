@@ -1,0 +1,28 @@
+{
+    "name": "Daiquiri",
+    "ingredients": [
+        {
+            "name": "White rum",
+            "amount": 2.0,
+            "unit": "oz"
+        },
+        {
+            "name": "Fresh lime juice",
+            "amount": 1.0,
+            "unit": "oz"
+        },
+        {
+            "name": "Simple syrup",
+            "amount": 0.75,
+            "unit": "oz"
+        }
+    ],
+    "instructions": [
+        "Add all ingredients to a shaker with ice",
+        "Shake vigorously until well-chilled",
+        "Double strain into a chilled coupe glass",
+        "Optionally garnish with a lime wheel"
+    ],
+    "glass_type": "Coupe",
+    "category": "Cocktail"
+}
