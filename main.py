@@ -1,8 +1,17 @@
-from fastapi import FastAPI, HTTPException
+from fastapi.security.api_key import APIKeyHeader
+from fastapi import FastAPI, HTTPException, Security, Depends
+from starlette.status import HTTP_403_FORBIDDEN
+from dotenv import load_dotenv
+import os
 import json
 from pathlib import Path
 from typing import List, Dict
 from models.cocktail import CocktailRecipe  # Import your existing model
+
+load_dotenv()  # Load environment variables from .env file
+
+API_KEY_NAME = "X-API-Key"
+api_key_header = APIKeyHeader(name=API_KEY_NAME, auto_error=False)
 
 app = FastAPI(title="Cocktail Recipes API")
 
@@ -84,9 +93,16 @@ async def get_cocktail_by_glass(glass: str):
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
     
+async def get_api_key(api_key_header: str = Security(api_key_header)):
+    if api_key_header is None:
+        raise HTTPException(status_code=HTTP_403_FORBIDDEN, detail="API Key missing")
+    if api_key_header != os.getenv("API_KEY"):  # Store your API key in environment variables
+        raise HTTPException(status_code=HTTP_403_FORBIDDEN, detail="Invalid API Key")
+    return api_key_header
+    
 # add a new cocktail including inredients, glasstype, instructions category
 @app.post("/cocktails/")
-async def add_cocktail(cocktail: CocktailRecipe):
+async def add_cocktail(cocktail: CocktailRecipe, api_key: str = Depends(get_api_key)):
     """Add a new cocktail"""
     try:
         name = cocktail.name
