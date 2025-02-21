@@ -46,7 +46,7 @@ async def root():
     """Root endpoint"""
     return {"message": "Welcome to Cocktail Recipes API"}
 
-@app.get("/cocktails/", response_model=List[str])
+@app.get("/cocktails/", response_model=List[str], tags=["cocktails"])
 async def list_cocktails():
     """Get a list of all available cocktails"""
     try:
@@ -54,7 +54,7 @@ async def list_cocktails():
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error listing cocktails: {str(e)}")
 
-@app.get("/cocktails/{name}")
+@app.get("/cocktails/{name}", tags=["cocktails"])
 async def get_cocktail(name: str) -> Dict:
     """Get a specific cocktail recipe by name"""
     # Normalize the search term
@@ -80,7 +80,7 @@ async def get_cocktail(name: str) -> Dict:
         detail=f"Cocktail '{name}' not found"
     )
 
-@app.get("/cocktails/ingredient/{ingredient}")
+@app.get("/cocktails/ingredient/{ingredient}", tags=["cocktails"])
 async def get_cocktail_by_ingredient(ingredient: str) -> List[str]:
     """Get cocktails by ingredient"""
     search_term = ingredient.lower()
@@ -102,7 +102,7 @@ async def get_cocktail_by_ingredient(ingredient: str) -> List[str]:
         raise HTTPException(status_code=500, 
                           detail=f"Error searching by ingredient: {str(e)}")
     
-@app.get("/cocktails/ingredients/{ingredients}")
+@app.get("/cocktails/ingredients/{ingredients}", tags=["cocktails"])
 async def get_cocktail_by_ingredients(ingredients: str) -> List[str]:
     """Get cocktails by multiple ingredients
     
@@ -135,7 +135,7 @@ async def get_cocktail_by_ingredients(ingredients: str) -> List[str]:
         raise HTTPException(status_code=500,
                           detail=f"Error searching by ingredients: {str(e)}") 
 
-@app.get("/cocktails/glass/{glass}")
+@app.get("/cocktails/glass/{glass}", tags=["cocktails"])
 async def get_cocktail_by_glass(glass: str) -> List[str]:
     """Get cocktails by glass type"""
     search_term = glass.lower()
@@ -157,7 +157,7 @@ async def get_cocktail_by_glass(glass: str) -> List[str]:
         raise HTTPException(status_code=500, 
                           detail=f"Error searching by glass: {str(e)}")
     
-@app.get("/cocktails/ingredients/") 
+@app.get("/cocktails/ingredients/", tags=["cocktails"]) 
 async def get_list_of_ingredients() -> List[str]:
     """Get a list of all available ingredients"""
     ingredients = set()
@@ -171,7 +171,7 @@ async def get_list_of_ingredients() -> List[str]:
         raise HTTPException(status_code=500,
                           detail=f"Error listing ingredients: {str(e)}")
     
-@app.get("/cocktails/glasses/")
+@app.get("/cocktails/glasses/", tags=["cocktails"])
 async def get_list_of_glasses() -> List[str]:
     """Get a list of all available glasses"""
     glasses = set()
@@ -184,7 +184,7 @@ async def get_list_of_glasses() -> List[str]:
         raise HTTPException(status_code=500,
                           detail=f"Error listing glasses: {str(e)}")
 
-@app.post("/cocktails/")
+@app.post("/cocktails/", tags=["cocktails"])
 async def add_cocktail(cocktail: CocktailRecipe, 
                       api_key: str = Depends(verify_api_key)) -> Dict:
     """Add a new cocktail"""
