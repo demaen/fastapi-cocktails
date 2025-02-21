@@ -21,10 +21,12 @@ uvicorn main:app --reload
 - `GET /cocktails/`: List all available cocktails
 - `GET /cocktails/{name}`: Get a specific cocktail recipe
 - `GET /cocktails/ingredient/{ingredient}`: Find cocktails containing a specific ingredient
+- `GET /cocktails/ingredients/{ingredients}`: Find cocktails containing multiple ingredients (comma-separated)
+- `GET /cocktails/ingredients/`: Get a list of all available ingredients
 - `GET /cocktails/glass/{glass}`: Find cocktails using a specific glass type
+- `GET /cocktails/glasses/`: Get a list of all available glass types
 - `POST /cocktails/`: Add a new cocktail recipe
 - `GET /docs`: Interactive API documentation (Swagger UI)
-
 ```
 
 ## Data Structure
