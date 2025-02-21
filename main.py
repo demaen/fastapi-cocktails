@@ -133,7 +133,7 @@ async def get_cocktail_by_ingredients(ingredients: str) -> List[str]:
         raise
     except Exception as e:
         raise HTTPException(status_code=500,
-                          detail=f"Error searching by ingredients: {str(e)}")✨ 
+                          detail=f"Error searching by ingredients: {str(e)}") 
 
 @app.get("/cocktails/glass/{glass}")
 async def get_cocktail_by_glass(glass: str) -> List[str]:
