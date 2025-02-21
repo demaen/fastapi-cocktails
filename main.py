@@ -16,7 +16,7 @@ load_dotenv()
 app = FastAPI(
     title="Cocktail Recipes API",
     description="An API for managing cocktail recipes",
-    version="0.1.1",
+    version="0.1.2",
     openapi_version="3.0.2",
     openapi_tags=[{"name": "cocktails", "description": "Operations with cocktails"}]
 )
