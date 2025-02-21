@@ -7,6 +7,7 @@ import os
 from typing import List, Dict
 from models.cocktail import CocktailRecipe
 from services.cocktail_manager import CocktailManager
+from fuzzywuzzy import fuzz
 
 # Load environment variables
 load_dotenv()
@@ -56,14 +57,28 @@ async def list_cocktails():
 @app.get("/cocktails/{name}")
 async def get_cocktail(name: str) -> Dict:
     """Get a specific cocktail recipe by name"""
-    file_path = cocktail_manager.data_dir / f"{name}.json"
-    if not file_path.exists():
-        raise HTTPException(status_code=404, detail=f"Cocktail {name} not found")
+    # Normalize the search term
+    normalized_name = name.lower().strip()
     
-    try:
-        return cocktail_manager._read_json_file(file_path)
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Error reading cocktail: {str(e)}")
+    # Search through all cocktail files
+    for file_path in cocktail_manager.data_dir.glob("*.json"):
+        try:
+            cocktail_data = cocktail_manager._read_json_file(file_path)
+            # Case-insensitive comparison
+            if cocktail_data["name"].lower().strip() == normalized_name:
+                return cocktail_data
+                
+            # # Optional: Add fuzzy matching for similar names
+            # if fuzz.ratio(cocktail_data["name"].lower(), normalized_name) > 85:
+            #     return cocktail_data
+                
+        except Exception as e:
+            continue  # Skip files that can't be read
+            
+    raise HTTPException(
+        status_code=404, 
+        detail=f"Cocktail '{name}' not found"
+    )
 
 @app.get("/cocktails/ingredient/{ingredient}")
 async def get_cocktail_by_ingredient(ingredient: str) -> List[str]:
@@ -86,6 +101,39 @@ async def get_cocktail_by_ingredient(ingredient: str) -> List[str]:
     except Exception as e:
         raise HTTPException(status_code=500, 
                           detail=f"Error searching by ingredient: {str(e)}")
+    
+@app.get("/cocktails/ingredients/{ingredients}")
+async def get_cocktail_by_ingredients(ingredients: str) -> List[str]:
+    """Get cocktails by multiple ingredients
+    
+    Parameters:
+        ingredients (str): Comma-separated list of ingredient names to search for
+        
+    Returns:
+        List[str]: List of cocktail names that contain all the specified ingredients
+        
+    Raises:
+        HTTPException: 404 if no cocktails found with ingredients
+                      500 if error occurs during search
+    """
+    search_terms = [ingredient.lower().strip() for ingredient in ingredients.split(",")]
+    cocktails = []
+
+    try:
+        for file_path in cocktail_manager.data_dir.glob("*.json"):
+            cocktail = cocktail_manager._read_json_file(file_path)
+            if all(cocktail_manager._has_ingredient(cocktail, term) for term in search_terms):
+                cocktails.append(cocktail["name"])
+
+        if not cocktails:
+            raise HTTPException(status_code=404,
+                              detail=f"No cocktails found with ingredients {ingredients}")
+        return cocktails
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500,
+                          detail=f"Error searching by ingredients: {str(e)}")✨ 
 
 @app.get("/cocktails/glass/{glass}")
 async def get_cocktail_by_glass(glass: str) -> List[str]:
@@ -108,6 +156,33 @@ async def get_cocktail_by_glass(glass: str) -> List[str]:
     except Exception as e:
         raise HTTPException(status_code=500, 
                           detail=f"Error searching by glass: {str(e)}")
+    
+@app.get("/cocktails/ingredients/") 
+async def get_list_of_ingredients() -> List[str]:
+    """Get a list of all available ingredients"""
+    ingredients = set()
+    try:
+        for file_path in cocktail_manager.data_dir.glob("*.json"):
+            cocktail = cocktail_manager._read_json_file(file_path)
+            for ingredient in cocktail["ingredients"]:
+                ingredients.add(ingredient["name"])
+        return sorted(list(ingredients))
+    except Exception as e:
+        raise HTTPException(status_code=500,
+                          detail=f"Error listing ingredients: {str(e)}")
+    
+@app.get("/cocktails/glasses/")
+async def get_list_of_glasses() -> List[str]:
+    """Get a list of all available glasses"""
+    glasses = set()
+    try:
+        for file_path in cocktail_manager.data_dir.glob("*.json"):
+            cocktail = cocktail_manager._read_json_file(file_path)
+            glasses.add(cocktail["glass_type"])
+        return sorted(list(glasses))
+    except Exception as e:
+        raise HTTPException(status_code=500,
+                          detail=f"Error listing glasses: {str(e)}")
 
 @app.post("/cocktails/")
 async def add_cocktail(cocktail: CocktailRecipe, 
